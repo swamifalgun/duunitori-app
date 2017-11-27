@@ -1,0 +1,25 @@
+<% include partials/header %>
+<div class="container">
+<header class="jumbotron">
+<h1>Open Positions</h1>
+</header>
+<ul>
+    <div class="row">
+            <% data["results"].forEach(function(position){%>
+                <li style="list-style: none;">
+                    <strong>
+                        <%=position["heading"] %>
+                    </strong> -
+                    <%=new Date(position["date_posted"]).toDateString(); %>
+                </li>
+                <li style="list-style: none;">
+                    <%=position["company_name"]%>, <%=position["municipality_name"] %>
+                </li>
+                <%}); %>
+    </div>
+    
+</ul><p>
+<a class="btn btn-primary btn-md" href="/">search again</a>
+</p>
+</div>
+<% include partials/footer %>
