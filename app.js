@@ -2,7 +2,10 @@
 var express = require('express');
 var app = express();
 var request = require('request');
-var port = 3000;
+
+var port = app.listen(process.env.PORT || 3000, function () {
+    console.log('server started');
+});
 
 // View renderer
 app.set("view engine", "ejs");
@@ -13,8 +16,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/results', (req, res) => { 
-    var query = req.query.position
-    var location = req.query.location
+    var query = req.query.position;
+    var location = req.query.location;
     request("https://duunitori.fi/api/v1/jobentries?search="+query+ "&area=" + location+"&sho=1&format=json", function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body)
@@ -25,6 +28,4 @@ app.get('/results', (req, res) => {
 });
 
 // Server 
-app.listen(process.env.PORT || port, () => {
-    console.log("Server running on port: " + port);
-});
+app.listen(port);
